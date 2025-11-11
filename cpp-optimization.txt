@@ -1,0 +1,48 @@
+Before the optimizations:
+5.39
+
+real    0m0.661s
+user    0m5.136s
+sys     0m0.014s
+
+Cutting into 8ths-This was one idea that came up when my classmates and I met up to optimize code, there was not a speed up. :
+5.39
+
+real    0m0.700s
+user    0m5.426s
+sys     0m0.016s
+
+
+Dividing the problem into 4rths and this made it faster so you also only have to step a 4rth of the size, but this is specific to this problem.-Another idea that came up when my classmates and I met up to code.  This also did not speed anything up:
+5.39
+
+real    0m0.794s
+user    0m6.203s
+sys     0m0.032s
+
+Vectorization.This was done in the first optimization file, but I wanted to implement it after the first two optimizations to see if things would speed up:
+5.39
+
+real    0m0.401s
+user    0m3.072s
+sys     0m0.017s
+By adding std::vector<double>  and idx(i,j,n), single instruction multiple data is allowed to happen and make it more consistent. This part does not actually speed anything up but allows for a speed up. Also, laplacian_flat things help set things up to calculate contiguous indexing instead of 2-D vectors. Simd was added in more places for kinetic energy  and now it appears on every hot inner loop and is more effective. #pragma omp simd reduction (+:E) this is vectorizing the sum operation over many elements.
+
+_Restrict was the next thing I tried, this did not speed things up. This prevents any overlap in points and memory. This did not speed anything up.
+5.39
+
+real    0m0.405s
+user    0m3.105s
+sys     0m0.024s
+static inline double laplacian_flat(const double* __restrict u,
+                                    std::size_t i, std::size_t j, std::size_t n)
+static double energy_flat(const double* __restrict u,
+                          const double* __restrict v,
+                          std::size_t m, std::size_t n)
+static inline void mirror_quadrants_flat(double* __restrict a,
+                                         std::size_t m, std::size_t n)
+static inline void step_quadrant_flat(double* __restrict u,
+                                      double* __restrict v,
+                                      std::size_t m, std::size_t n,
+                                      double c, double dt)
+Overall, the only effective optimization was the additional vectorization. We tried multiple optimizations over the 3+ hours and most of them did not speed anything up. My code is mostly different then the original, because of the successful and failed optimizations that I messed around with. The speed up was from 0.661s to 0.405s so about 1.63x 38.7% faster. This is honestly pretty good in my mind, because 0.661 was already pretty small so I was not sure if I was going to be able to see any improvement. I worked with a lot of optimization in the original, but was happy to see a significant decrease here for this project!
