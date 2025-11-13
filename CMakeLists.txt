@@ -9,7 +9,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG   "${CMAKE_SOURCE_DIR}")
 
-
 # Language & warnings
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -26,6 +25,10 @@ endif()
 # OpenMP is required for both targets in this assignment
 find_package(OpenMP REQUIRED)
 
+# MPI + MPL for wavesolve_mpi
+find_package(MPI REQUIRED)
+find_package(mpl REQUIRED)
+
 # ---- Targets ---------------------------------------------------------------
 
 # optimize
@@ -36,5 +39,7 @@ target_link_libraries(optimize PRIVATE OpenMP::OpenMP_CXX)
 add_executable(wavesolve_openmp wavesolve_openmp.cpp)
 target_link_libraries(wavesolve_openmp PRIVATE OpenMP::OpenMP_CXX)
 
-
+# wavesolve_mpi (MPI version)
+add_executable(wavesolve_mpi wavesolve_mpi.cpp)
+target_link_libraries(wavesolve_mpi PRIVATE MPI::MPI_CXX mpl::mpl)
 
