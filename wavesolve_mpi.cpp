@@ -4,10 +4,10 @@
 #include <type_traits>
 #include <algorithm>
 #include <unistd.h>
-#include <utility>      // for std::pair
-#include <functional>   // for std::plus
-#include <string>       // for std::string
-#include <cstdlib>      // for std::getenv, std::strtod
+#include <utility>      
+#include <functional>   
+#include <string>       
+#include <cstdlib>      
 #include <mpl/mpl.hpp>
 
 
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 
     f64 c = read_at_all<f64>(fin, offset);
     offset += sizeof(f64);
-    f64 t = read_at_all<f64>(fin, offset);   // we will treat this as *remaining* time
+    f64 t = read_at_all<f64>(fin, offset);   
     offset += sizeof(f64);
 
     std::size_t header_size = offset;
@@ -154,8 +154,8 @@ int main(int argc, char *argv[]) {
             u64 rf = real_row_first - halo_row_first;  
             u64 rl = real_row_last  - halo_row_first;  
 
-            f64 local_dynamic   = 0.0; // from velocities v
-            f64 local_potential = 0.0; // from displacements u
+            f64 local_dynamic   = 0.0;
+            f64 local_potential = 0.0;
 
             for (u64 i = rf; i < rl; ++i)
                 for (u64 j = 0; j < cols; ++j) {       
@@ -185,7 +185,7 @@ int main(int argc, char *argv[]) {
 
         auto solve = [&]() {
             f64 dt = 0.01;
-            int steps = int(t / dt);   // t is remaining time
+            int steps = int(t / dt);   
 
             if (steps <= 0)
                 return;
@@ -205,7 +205,7 @@ int main(int argc, char *argv[]) {
                 char *endp = nullptr;
                 double intvl_time = std::strtod(env, &endp);
                 if (endp != env && intvl_time > 0.0) { 
-                    int ci = int(intvl_time / dt + 0.5); // round to nearest step
+                    int ci = int(intvl_time / dt + 0.5); 
                     if (ci < 1) ci = 1;
                     checkpoint_interval = ci;
                 }
@@ -233,7 +233,7 @@ int main(int argc, char *argv[]) {
 
                 remaining -= dt;
                 if (remaining < 0.0) remaining = 0.0;  
-                t = remaining;  // update header field for future writes
+                t = remaining;  
 
                 if ((step + 1) % checkpoint_interval == 0) {
                     write_state(ckpt_name);
