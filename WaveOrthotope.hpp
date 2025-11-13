@@ -73,7 +73,7 @@ public:
     inline std::size_t interior_cells() const { return interior(); }
     inline double time() const { return t; }
 
-    // --- OpenMP-friendly step() with canonical loop bounds ---
+  
     void step() {
         const std::size_t R = rows();
         const std::size_t C = cols();
@@ -81,7 +81,7 @@ public:
         const double* __restrict ud = u.data();
         double* __restrict lapd = lap.data();
 
-        // 1) Laplacian
+   
         #pragma omp parallel for
         for (std::size_t i = 1; i < R - 1; ++i) {
             const std::size_t im1 = (i - 1) * C;
@@ -97,7 +97,7 @@ public:
             }
         }
 
-        // 2) Velocity update: v += (c2*lap - c*v)*dt
+     
         double* __restrict vd = v.data();
         #pragma omp parallel for
         for (std::size_t i = 1; i < R - 1; ++i) {
@@ -110,7 +110,7 @@ public:
             }
         }
 
-        // 3) Displacement update: u += v*dt
+    
         double* __restrict udw = u.data();
         #pragma omp parallel for
         for (std::size_t i = 1; i < R - 1; ++i) {
@@ -126,7 +126,7 @@ public:
         t += dt;
     }
 
-    // --- OpenMP-friendly energy() with canonical loop bounds ---
+
     double energy() const {
         double E = 0.0;
         const std::size_t R = rows();
@@ -135,7 +135,7 @@ public:
         const double* __restrict ud = u.data();
         const double* __restrict vd = v.data();
 
-        // kinetic: 0.5 * v^2 on interior
+      
         #pragma omp parallel for reduction(+:E)
         for (std::size_t i = 1; i < R - 1; ++i) {
             const std::size_t i0 = i * C;
@@ -147,7 +147,7 @@ public:
             }
         }
 
-        // vertical spring energy (i vs i+1)
+    
         #pragma omp parallel for reduction(+:E)
         for (std::size_t i = 0; i < R - 1; ++i) {
             const std::size_t i0  =  i      * C;
@@ -160,7 +160,7 @@ public:
             }
         }
 
-        // horizontal spring energy (j vs j+1)
+      
         #pragma omp parallel for reduction(+:E)
         for (std::size_t i = 1; i < R - 1; ++i) {
             const std::size_t i0 = i * C;
