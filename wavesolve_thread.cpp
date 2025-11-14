@@ -11,9 +11,7 @@
 
 namespace fs = std::filesystem;
 
-// -------------------------------
-// ENV helpers
-// -------------------------------
+
 static int get_threads() {
     if (const char* s = std::getenv("SOLVER_NUM_THREADS")) {
         int t = std::atoi(s);
@@ -46,14 +44,12 @@ static void atomic_write(WaveOrthotope& w, const char* outPath) {
     }
 }
 
-// ==============================================================
-// ThreadPool — correct queue-based work sharing (TA-recommended)
-// ==============================================================
+
 struct ThreadPool {
     WaveOrthotope& w;
     size_t nthreads;
 
-    std::barrier<> phase_barrier;        // N worker + main
+    std::barrier<> phase_barrier;       
     std::vector<std::jthread> workers;
 
     struct Chunk { size_t r0, r1; };
@@ -89,17 +85,17 @@ struct ThreadPool {
                 size_t C = w.cols();
                 while (keep_running.load(std::memory_order_acquire)) {
 
-                    // PHASE 1
+                
                     phase_barrier.arrive_and_wait();
                     run_laplacian(C);
                     phase_barrier.arrive_and_wait();
 
-                    // PHASE 2
+                 
                     phase_barrier.arrive_and_wait();
                     run_velocity(C);
                     phase_barrier.arrive_and_wait();
 
-                    // PHASE 3
+                   
                     phase_barrier.arrive_and_wait();
                     run_displacement(C);
                     phase_barrier.arrive_and_wait();
@@ -166,9 +162,7 @@ struct ThreadPool {
     }
 };
 
-// ==============================================================
-// MAIN — corrected clamp BEFORE ThreadPool
-// ==============================================================
+
 int main(int argc, char** argv) {
     if (argc < 3) return 1;
 
@@ -180,7 +174,7 @@ int main(int argc, char** argv) {
 
     WaveOrthotope w(file_exists(outFile) ? outFile : inFile);
 
-    // ⭐ MUST BE HERE — BEFORE ThreadPool ⭐
+ 
     nthreads = std::min<int>(nthreads, (int)(w.rows() - 2));
     if (nthreads < 1) nthreads = 1;
 
