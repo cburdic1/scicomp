@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-# Remove CPU-specific flags; m9 nodes crash with -march=native
+
 set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -DNDEBUG" CACHE STRING "" FORCE)
 
 project(MountainRange CXX)
@@ -21,9 +21,7 @@ endif()
 
 find_package(Threads REQUIRED)
 
-#
-# ==== wavesolve_thread (Phase 6 target) ====
-#
+
 add_executable(wavesolve_thread wavesolve_thread.cpp WaveOrthotope.hpp)
 target_link_libraries(wavesolve_thread PRIVATE Threads::Threads)
 
@@ -32,7 +30,4 @@ add_custom_command(TARGET wavesolve_thread POST_BUILD
             $<TARGET_FILE:wavesolve_thread>
             ${CMAKE_SOURCE_DIR}/wavesolve_thread)
 
-#
-# Keep optimize so TA doesn't complain; ignore warnings
-#
 add_executable(optimize optimize.cpp)
