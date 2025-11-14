@@ -63,14 +63,13 @@ public:
     }
     inline double time() const { return t; }
 
-    // ============= TA-tested exact energy function =============
     double energy() const {
         double E = 0.0;
         std::size_t R = rows(), C = cols();
         const double* ud = u.data();
         const double* vd = v.data();
 
-        // kinetic
+
         for (std::size_t i = 1; i < R - 1; i++) {
             std::size_t io = i * C;
             for (std::size_t j = 1; j < C - 1; j++) {
@@ -79,7 +78,7 @@ public:
             }
         }
 
-        // vertical springs
+   
         for (std::size_t i = 1; i < R - 2; i++) {
             std::size_t io = i * C, ip = (i + 1) * C;
             for (std::size_t j = 1; j < C - 1; j++) {
@@ -88,7 +87,7 @@ public:
             }
         }
 
-        // horizontal springs
+       
         for (std::size_t i = 1; i < R - 1; i++) {
             std::size_t io = i * C;
             for (std::size_t j = 1; j < C - 2; j++) {
