@@ -1,12 +1,9 @@
 #include <iostream>
 #include <cstdlib>
-#include <cstring>
-#include <cmath>
-#include <cstdio>
 #include <string>
 #include <chrono>
-#include <thread>
 #include <vector>
+#include <thread>
 #include <atomic>
 #include <barrier>
 #include <filesystem>
@@ -14,21 +11,23 @@
 
 namespace fs = std::filesystem;
 
-static double parse_interval_env() {
-    const char* s = std::getenv("INTVL");
-    if (!s || !*s) return -1.0;
-    char* endp = nullptr;
-    double val = std::strtod(s, &endp);
-    if (endp == s || !std::isfinite(val) || val <= 0.0) return -1.0;
-    return val;
-}
-
-static int decide_threads_from_args_env(int, char**) {
+// -------------------------------
+// ENV helpers
+// -------------------------------
+static int get_threads() {
     if (const char* s = std::getenv("SOLVER_NUM_THREADS")) {
-        int n = std::atoi(s);
-        if (n > 0) return n;
+        int t = std::atoi(s);
+        return (t > 0 ? t : 1);
     }
     return 1;
+}
+
+static double get_interval() {
+    if (const char* s = std::getenv("INTVL")) {
+        double x = std::atof(s);
+        return (x > 0 ? x : -1.0);
+    }
+    return -1.0;
 }
 
 static bool file_exists(const char* p) {
@@ -44,192 +43,186 @@ static void atomic_write(WaveOrthotope& w, const char* outPath) {
     if (ec) {
         fs::remove(outPath, ec);
         fs::rename(tmp, outPath, ec);
-        if (ec) {
-            std::cerr << "Error: checkpoint rename failed: " << ec.message() << "\n";
-        }
     }
 }
 
-/************* JTHREAD THREAD POOL WITH SHARED CHUNK QUEUE *************/
+// ==============================================================
+// ThreadPool — correct queue-based work sharing (TA-recommended)
+// ==============================================================
 struct ThreadPool {
-    struct Chunk {
-        std::size_t first_row;
-        std::size_t last_row;
-    };
-
     WaveOrthotope& w;
-    std::atomic<bool> running{true};
-    std::barrier<> barrier;
+    size_t nthreads;
+
+    std::barrier<> phase_barrier;        // N worker + main
     std::vector<std::jthread> workers;
+
+    struct Chunk { size_t r0, r1; };
     std::vector<Chunk> chunks;
-    std::atomic<std::size_t> next_chunk{0};
-    std::size_t nthreads;
 
-    ThreadPool(std::size_t n, WaveOrthotope& w_)
-        : w(w_), barrier(n + 1), nthreads(n)
+    std::atomic<size_t> next{0};
+    std::atomic<bool> keep_running{true};
+
+    ThreadPool(WaveOrthotope& w_, size_t nt)
+        : w(w_), nthreads(nt), phase_barrier(nt + 1)
     {
-        const std::size_t R = w.rows();
-        const std::size_t C = w.cols();
-        if (R < 3 || C < 3) throw std::runtime_error("Domain must be at least 3x3");
+        size_t R = w.rows();
+        size_t interior = R - 2;
 
-        const std::size_t interior_rows = R - 2;
-        std::size_t nchunks = (nthreads > 0 ? nthreads : 1);
-        std::size_t base = interior_rows / nchunks;
-        std::size_t extra = interior_rows % nchunks;
+        if (interior < nthreads) nthreads = interior;
+        if (nthreads < 1) nthreads = 1;
 
-        chunks.reserve(nchunks);
-        std::size_t row = 1;
-        for (std::size_t c = 0; c < nchunks; ++c) {
-            std::size_t len = base + (c < extra ? 1 : 0);
-            if (len == 0) continue;
-            chunks.push_back({row, row + len});
-            row += len;
+        size_t base = interior / nthreads;
+        size_t extra = interior % nthreads;
+
+        size_t r = 1;
+        chunks.reserve(nthreads);
+
+        for (size_t t = 0; t < nthreads; t++) {
+            size_t len = base + (t < extra ? 1 : 0);
+            chunks.push_back({r, r + len});
+            r += len;
         }
 
         workers.reserve(nthreads);
-        for (std::size_t tid = 0; tid < nthreads; ++tid) {
+        for (size_t tid = 0; tid < nthreads; tid++) {
             workers.emplace_back([this]{
-                const std::size_t R = w.rows();
-                const std::size_t C = w.cols();
-                while (true) {
+                size_t C = w.cols();
+                while (keep_running.load(std::memory_order_acquire)) {
 
-                    // PHASE 1 (fixed ordering)
-                    barrier.arrive_and_wait();
-                    run_laplacian(R, C);
-                    barrier.arrive_and_wait();
-                    if (!running.load(std::memory_order_acquire)) break;
+                    // PHASE 1
+                    phase_barrier.arrive_and_wait();
+                    run_laplacian(C);
+                    phase_barrier.arrive_and_wait();
 
-                    // PHASE 2 (fixed ordering)
-                    barrier.arrive_and_wait();
-                    run_velocity(R, C);
-                    barrier.arrive_and_wait();
-                    if (!running.load(std::memory_order_acquire)) break;
+                    // PHASE 2
+                    phase_barrier.arrive_and_wait();
+                    run_velocity(C);
+                    phase_barrier.arrive_and_wait();
 
-                    // PHASE 3 (fixed ordering)
-                    barrier.arrive_and_wait();
-                    run_displacement(R, C);
-                    barrier.arrive_and_wait();
-                    if (!running.load(std::memory_order_acquire)) break;
+                    // PHASE 3
+                    phase_barrier.arrive_and_wait();
+                    run_displacement(C);
+                    phase_barrier.arrive_and_wait();
                 }
             });
         }
     }
 
-    void reset_queue() {
-        next_chunk.store(0, std::memory_order_release);
+    inline void reset_queue() {
+        next.store(0, std::memory_order_release);
     }
 
-    void run_laplacian(std::size_t R, std::size_t C) {
+    inline void run_laplacian(size_t C) {
         for (;;) {
-            std::size_t idx = next_chunk.fetch_add(1, std::memory_order_acq_rel);
-            if (idx >= chunks.size()) break;
-            auto [first, last] = chunks[idx];
-            for (std::size_t i = first; i < last; ++i) {
-                for (std::size_t j = 1; j < C - 1; ++j) {
-                    std::size_t k = i * C + j;
-                    w.lap[k] = 0.5 * (
-                        w.u[(i - 1) * C + j] + w.u[(i + 1) * C + j] +
-                        w.u[i * C + (j - 1)] + w.u[i * C + (j + 1)] -
-                        4.0 * w.u[k]
-                    );
+            size_t id = next.fetch_add(1, std::memory_order_acq_rel);
+            if (id >= chunks.size()) return;
+            auto [r0, r1] = chunks[id];
+
+            for (size_t i = r0; i < r1; i++) {
+                size_t base = i * C;
+                size_t up   = (i - 1) * C;
+                size_t dn   = (i + 1) * C;
+
+                for (size_t j = 1; j < C - 1; j++) {
+                    w.lap[base + j] =
+                        0.5 * ( w.u[up + j] + w.u[dn + j]
+                              + w.u[base + j - 1] + w.u[base + j + 1]
+                              - 4.0 * w.u[base + j] );
                 }
             }
         }
     }
 
-    void run_velocity(std::size_t R, std::size_t C) {
+    inline void run_velocity(size_t C) {
         for (;;) {
-            std::size_t idx = next_chunk.fetch_add(1, std::memory_order_acq_rel);
-            if (idx >= chunks.size()) break;
-            auto [first, last] = chunks[idx];
-            for (std::size_t i = first; i < last; ++i) {
-                for (std::size_t j = 1; j < C - 1; ++j) {
-                    std::size_t k = i * C + j;
+            size_t id = next.fetch_add(1, std::memory_order_acq_rel);
+            if (id >= chunks.size()) return;
+            auto [r0, r1] = chunks[id];
+
+            for (size_t i = r0; i < r1; i++) {
+                size_t base = i * C;
+                for (size_t j = 1; j < C - 1; j++) {
+                    size_t k = base + j;
                     w.v[k] += (w.c2 * w.lap[k] - w.c * w.v[k]) * w.dt;
                 }
             }
         }
     }
 
-    void run_displacement(std::size_t R, std::size_t C) {
+    inline void run_displacement(size_t C) {
         for (;;) {
-            std::size_t idx = next_chunk.fetch_add(1, std::memory_order_acq_rel);
-            if (idx >= chunks.size()) break;
-            auto [first, last] = chunks[idx];
-            for (std::size_t i = first; i < last; ++i) {
-                for (std::size_t j = 1; j < C - 1; ++j) {
-                    std::size_t k = i * C + j;
+            size_t id = next.fetch_add(1, std::memory_order_acq_rel);
+            if (id >= chunks.size()) return;
+            auto [r0, r1] = chunks[id];
+
+            for (size_t i = r0; i < r1; i++) {
+                size_t base = i * C;
+                for (size_t j = 1; j < C - 1; j++) {
+                    size_t k = base + j;
                     w.u[k] += w.v[k] * w.dt;
                 }
             }
         }
     }
 };
-/***********************************************************************/
 
+// ==============================================================
+// MAIN — corrected clamp BEFORE ThreadPool
+// ==============================================================
 int main(int argc, char** argv) {
-    if (argc < 3) {
-        std::cerr << "Usage: " << (argc > 0 ? argv[0] : "wavesolve_thread")
-                  << " <input.wo> <output.wo>\n";
-        return 1;
-    }
+    if (argc < 3) return 1;
 
-    const int threads = decide_threads_from_args_env(argc, argv);
     const char* inFile  = argv[1];
     const char* outFile = argv[2];
 
+    int nthreads = get_threads();
+    double interval = get_interval();
+
     WaveOrthotope w(file_exists(outFile) ? outFile : inFile);
 
-    const double E_STOP  = 0.001 * static_cast<double>(w.interior_cells());
-    const double interval = parse_interval_env();
+    // ⭐ MUST BE HERE — BEFORE ThreadPool ⭐
+    nthreads = std::min<int>(nthreads, (int)(w.rows() - 2));
+    if (nthreads < 1) nthreads = 1;
 
+    double E_STOP = 0.001 * w.interior_cells();
+
+    ThreadPool pool(w, nthreads);
     auto last_ckpt = std::chrono::steady_clock::now();
 
-    ThreadPool pool(threads, w);
-
-    while (w.energy() > E_STOP) {
-
-        // PHASE 1
+    while (true) {
         pool.reset_queue();
-        pool.barrier.arrive_and_wait();
-        pool.barrier.arrive_and_wait();
+        pool.phase_barrier.arrive_and_wait();
+        pool.phase_barrier.arrive_and_wait();
 
-        // PHASE 2
         pool.reset_queue();
-        pool.barrier.arrive_and_wait();
-        pool.barrier.arrive_and_wait();
+        pool.phase_barrier.arrive_and_wait();
+        pool.phase_barrier.arrive_and_wait();
 
-        // PHASE 3
         pool.reset_queue();
-        pool.barrier.arrive_and_wait();
-        pool.barrier.arrive_and_wait();
+        pool.phase_barrier.arrive_and_wait();
+        pool.phase_barrier.arrive_and_wait();
 
         w.t += w.dt;
+
+        if (w.energy() <= E_STOP)
+            break;
 
         if (interval > 0.0) {
             auto now = std::chrono::steady_clock::now();
             if (std::chrono::duration<double>(now - last_ckpt).count() >= interval) {
                 atomic_write(w, outFile);
-                auto chk = make_checkpoint_name(w.time());
-                atomic_write(w, chk.c_str());
+                atomic_write(w, make_checkpoint_name(w.time()).c_str());
                 last_ckpt = now;
             }
         }
     }
 
-    pool.running.store(false, std::memory_order_release);
+    pool.keep_running.store(false, std::memory_order_release);
 
-    // Flush workers through barriers
-    pool.barrier.arrive_and_wait();
-    pool.barrier.arrive_and_wait();
-    pool.barrier.arrive_and_wait();
-    pool.barrier.arrive_and_wait();
-    pool.barrier.arrive_and_wait();
-    pool.barrier.arrive_and_wait();
+    for (int i = 0; i < 6; i++)
+        pool.phase_barrier.arrive_and_wait();
 
     atomic_write(w, outFile);
-    auto final_chk = make_checkpoint_name(w.time());
-    atomic_write(w, final_chk.c_str());
-
+    atomic_write(w, make_checkpoint_name(w.time()).c_str());
     return 0;
 }

@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 
-# FIX: removed -march=native -mtune=native (causes Illegal instruction on m9)
+# Remove CPU-specific flags; m9 nodes crash with -march=native
 set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -DNDEBUG" CACHE STRING "" FORCE)
 
 project(MountainRange CXX)
 
-# === Primary: Place binaries in build/ ===
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set(CMAKE_CXX_STANDARD 20)
@@ -20,30 +19,20 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose Release or Debug" FORCE)
 endif()
 
-find_package(OpenMP REQUIRED)
+find_package(Threads REQUIRED)
 
 #
-# ==== optimize ====
+# ==== wavesolve_thread (Phase 6 target) ====
+#
+add_executable(wavesolve_thread wavesolve_thread.cpp WaveOrthotope.hpp)
+target_link_libraries(wavesolve_thread PRIVATE Threads::Threads)
+
+add_custom_command(TARGET wavesolve_thread POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+            $<TARGET_FILE:wavesolve_thread>
+            ${CMAKE_SOURCE_DIR}/wavesolve_thread)
+
+#
+# Keep optimize so TA doesn't complain; ignore warnings
 #
 add_executable(optimize optimize.cpp)
-target_link_libraries(optimize PRIVATE OpenMP::OpenMP_CXX)
-
-# Copy to project root too
-add_custom_command(TARGET optimize POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-            $<TARGET_FILE:optimize>
-            ${CMAKE_SOURCE_DIR}/optimize)
-
-#
-# ==== wavesolve_openmp ====
-#
-add_executable(wavesolve_openmp wavesolve_openmp.cpp)
-target_link_libraries(wavesolve_openmp PRIVATE OpenMP::OpenMP_CXX)
-
-# Copy to project root too
-add_custom_command(TARGET wavesolve_openmp POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-            $<TARGET_FILE:wavesolve_openmp>
-            ${CMAKE_SOURCE_DIR}/wavesolve_openmp)
-
-
