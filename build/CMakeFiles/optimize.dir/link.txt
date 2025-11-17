@@ -1,0 +1,1 @@
+/apps/gcc/14.1.0/bin/g++ -Ofast -DNDEBUG CMakeFiles/optimize.dir/optimize.cpp.o -o optimize  /vapps/rhel9/x86_64/gcc/14.1.0/lib64/libgomp.so /lib64/libpthread.a 

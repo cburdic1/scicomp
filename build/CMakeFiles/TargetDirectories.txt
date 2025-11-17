@@ -1,0 +1,5 @@
+/home/cburdic1/scicomp/build/CMakeFiles/optimize.dir
+/home/cburdic1/scicomp/build/CMakeFiles/wavesolve_openmp.dir
+/home/cburdic1/scicomp/build/CMakeFiles/wavesolve_thread.dir
+/home/cburdic1/scicomp/build/CMakeFiles/edit_cache.dir
+/home/cburdic1/scicomp/build/CMakeFiles/rebuild_cache.dir

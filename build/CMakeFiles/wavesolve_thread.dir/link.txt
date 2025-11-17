@@ -1,0 +1,1 @@
+/apps/gcc/14.1.0/bin/g++ -Ofast -DNDEBUG CMakeFiles/wavesolve_thread.dir/wavesolve_thread.cpp.o -o wavesolve_thread 

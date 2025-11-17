@@ -1,0 +1,16 @@
+name = "WaveSim"
+uuid = "784a90da-ac8c-451e-b1d9-9da584df6ccb"
+authors = ["Michael Greenburg <michael_greenburg@byu.edu>"]
+version = "0.1.2"
+
+[deps]
+Artifacts = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
+GZip = "92fee26a-97fe-5a0c-ad85-20a5f3185b63"
+LazyArtifacts = "4af54fe1-eca0-43a8-85a7-787d91b784e3"
+Preferences = "21216c6a-2e73-6563-6e65-726566657250"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

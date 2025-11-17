@@ -1,16 +1,15 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
-#include <chrono>
-#include <vector>
 #include <thread>
-#include <atomic>
-#include <barrier>
+#include <vector>
 #include <filesystem>
+#include <barrier>
+#include <chrono>
+#include <atomic>
 #include "WaveOrthotope.hpp"
 
 namespace fs = std::filesystem;
-
 
 static int get_threads() {
     if (const char* s = std::getenv("SOLVER_NUM_THREADS")) {
@@ -20,203 +19,144 @@ static int get_threads() {
     return 1;
 }
 
-static double get_interval() {
-    if (const char* s = std::getenv("INTVL")) {
-        double x = std::atof(s);
-        return (x > 0 ? x : -1.0);
-    }
-    return -1.0;
+static double parse_interval_env() {        
+    const char* s = std::getenv("INTVL");   
+    if (!s || !*s) return -1.0;
+    double v = std::atof(s);
+    return (v > 0.0 ? v : -1.0);
 }
 
-static bool file_exists(const char* p) {
-    std::error_code ec;
-    return fs::exists(p, ec);
-}
-
-static void atomic_write(WaveOrthotope& w, const char* outPath) {
-    std::string tmp = std::string(outPath) + ".tmp";
+static void atomic_write(const WaveOrthotope& w, const char* out) {
+    std::string tmp = std::string(out) + ".tmp";
     w.write(tmp.c_str());
-    std::error_code ec;
-    fs::rename(tmp, outPath, ec);
-    if (ec) {
-        fs::remove(outPath, ec);
-        fs::rename(tmp, outPath, ec);
-    }
+    fs::rename(tmp, out);
 }
-
-
-struct ThreadPool {
-    WaveOrthotope& w;
-    size_t nthreads;
-
-    std::barrier<> phase_barrier;       
-    std::vector<std::jthread> workers;
-
-    struct Chunk { size_t r0, r1; };
-    std::vector<Chunk> chunks;
-
-    std::atomic<size_t> next{0};
-    std::atomic<bool> keep_running{true};
-
-    ThreadPool(WaveOrthotope& w_, size_t nt)
-        : w(w_), nthreads(nt), phase_barrier(nt + 1)
-    {
-        size_t R = w.rows();
-        size_t interior = R - 2;
-
-        if (interior < nthreads) nthreads = interior;
-        if (nthreads < 1) nthreads = 1;
-
-        size_t base = interior / nthreads;
-        size_t extra = interior % nthreads;
-
-        size_t r = 1;
-        chunks.reserve(nthreads);
-
-        for (size_t t = 0; t < nthreads; t++) {
-            size_t len = base + (t < extra ? 1 : 0);
-            chunks.push_back({r, r + len});
-            r += len;
-        }
-
-        workers.reserve(nthreads);
-        for (size_t tid = 0; tid < nthreads; tid++) {
-            workers.emplace_back([this]{
-                size_t C = w.cols();
-                while (keep_running.load(std::memory_order_acquire)) {
-
-                
-                    phase_barrier.arrive_and_wait();
-                    run_laplacian(C);
-                    phase_barrier.arrive_and_wait();
-
-                 
-                    phase_barrier.arrive_and_wait();
-                    run_velocity(C);
-                    phase_barrier.arrive_and_wait();
-
-                   
-                    phase_barrier.arrive_and_wait();
-                    run_displacement(C);
-                    phase_barrier.arrive_and_wait();
-                }
-            });
-        }
-    }
-
-    inline void reset_queue() {
-        next.store(0, std::memory_order_release);
-    }
-
-    inline void run_laplacian(size_t C) {
-        for (;;) {
-            size_t id = next.fetch_add(1, std::memory_order_acq_rel);
-            if (id >= chunks.size()) return;
-            auto [r0, r1] = chunks[id];
-
-            for (size_t i = r0; i < r1; i++) {
-                size_t base = i * C;
-                size_t up   = (i - 1) * C;
-                size_t dn   = (i + 1) * C;
-
-                for (size_t j = 1; j < C - 1; j++) {
-                    w.lap[base + j] =
-                        0.5 * ( w.u[up + j] + w.u[dn + j]
-                              + w.u[base + j - 1] + w.u[base + j + 1]
-                              - 4.0 * w.u[base + j] );
-                }
-            }
-        }
-    }
-
-    inline void run_velocity(size_t C) {
-        for (;;) {
-            size_t id = next.fetch_add(1, std::memory_order_acq_rel);
-            if (id >= chunks.size()) return;
-            auto [r0, r1] = chunks[id];
-
-            for (size_t i = r0; i < r1; i++) {
-                size_t base = i * C;
-                for (size_t j = 1; j < C - 1; j++) {
-                    size_t k = base + j;
-                    w.v[k] += (w.c2 * w.lap[k] - w.c * w.v[k]) * w.dt;
-                }
-            }
-        }
-    }
-
-    inline void run_displacement(size_t C) {
-        for (;;) {
-            size_t id = next.fetch_add(1, std::memory_order_acq_rel);
-            if (id >= chunks.size()) return;
-            auto [r0, r1] = chunks[id];
-
-            for (size_t i = r0; i < r1; i++) {
-                size_t base = i * C;
-                for (size_t j = 1; j < C - 1; j++) {
-                    size_t k = base + j;
-                    w.u[k] += w.v[k] * w.dt;
-                }
-            }
-        }
-    }
-};
-
 
 int main(int argc, char** argv) {
-    if (argc < 3) return 1;
-
-    const char* inFile  = argv[1];
-    const char* outFile = argv[2];
-
-    int nthreads = get_threads();
-    double interval = get_interval();
-
-    WaveOrthotope w(file_exists(outFile) ? outFile : inFile);
-
- 
-    nthreads = std::min<int>(nthreads, (int)(w.rows() - 2));
-    if (nthreads < 1) nthreads = 1;
-
-    double E_STOP = 0.001 * w.interior_cells();
-
-    ThreadPool pool(w, nthreads);
-    auto last_ckpt = std::chrono::steady_clock::now();
-
-    while (true) {
-        pool.reset_queue();
-        pool.phase_barrier.arrive_and_wait();
-        pool.phase_barrier.arrive_and_wait();
-
-        pool.reset_queue();
-        pool.phase_barrier.arrive_and_wait();
-        pool.phase_barrier.arrive_and_wait();
-
-        pool.reset_queue();
-        pool.phase_barrier.arrive_and_wait();
-        pool.phase_barrier.arrive_and_wait();
-
-        w.t += w.dt;
-
-        if (w.energy() <= E_STOP)
-            break;
-
-        if (interval > 0.0) {
-            auto now = std::chrono::steady_clock::now();
-            if (std::chrono::duration<double>(now - last_ckpt).count() >= interval) {
-                atomic_write(w, outFile);
-                atomic_write(w, make_checkpoint_name(w.time()).c_str());
-                last_ckpt = now;
-            }
-        }
+    if (argc != 3) {
+        std::cerr << "usage: wavesolve_thread in.wo out.wo\n";
+        return 1;
     }
 
-    pool.keep_running.store(false, std::memory_order_release);
+    const char* infile = argv[1];
+    const char* outfile = argv[2];
 
-    for (int i = 0; i < 6; i++)
-        pool.phase_barrier.arrive_and_wait();
+    WaveOrthotope w(infile);
 
-    atomic_write(w, outFile);
-    atomic_write(w, make_checkpoint_name(w.time()).c_str());
+    const double E_STOP = 0.001 * static_cast<double>(w.interior_cells());
+    const double dt = w.dt;
+
+    double& t = w.t;
+
+    double interval = parse_interval_env(); 
+    auto last_ckpt = std::chrono::steady_clock::now();
+
+    const size_t R = w.rows();
+    const size_t C = w.cols();
+    const int T = get_threads();
+
+    size_t work = R - 2;
+    size_t chunk = work / T;
+    size_t rem = work % T;
+
+    struct Chunk { size_t i0, i1; };        
+    std::vector<Chunk> chunks(T);
+
+    size_t cur = 1;
+    for (int th = 0; th < T; th++) {        
+        size_t size = chunk + (th < rem ? 1 : 0);
+        chunks[th] = { cur, cur + size };   
+        cur += size;
+    }
+
+    std::barrier sync(T);
+    std::atomic<bool> done(false);
+
+    auto worker = [&](int tid) {
+        size_t i0 = chunks[tid].i0;
+        size_t i1 = chunks[tid].i1;
+
+        while (true) {
+            if (tid == 0) {
+                double E = w.energy();      
+                if (E <= E_STOP) {
+                    done.store(true, std::memory_order_relaxed);
+                } else {
+                    done.store(false, std::memory_order_relaxed);
+                }
+            }
+
+            sync.arrive_and_wait();
+
+            if (done.load(std::memory_order_relaxed))
+                return;
+
+            double* u = w.u.data();
+            double* v = w.v.data();
+            double* lap = w.lap.data();     
+            const double* ud = w.u.data();
+
+            for (size_t i = i0; i < i1; i++) {
+                size_t im1 = (i - 1) * C;   
+                size_t ic  =  i      * C;   
+                size_t ip1 = (i + 1) * C;   
+
+                for (size_t j = 1; j < C - 1; j++) {
+                    size_t k = ic + j;      
+                    lap[k] = 0.5 * (ud[im1 + j] + ud[ip1 + j]
+                                   + ud[ic + j - 1] + ud[ic + j + 1]
+                                   - 4.0 * ud[k]);
+                }
+            }
+
+            sync.arrive_and_wait();
+
+            for (size_t i = i0; i < i1; i++) {
+                size_t ic = i * C;
+                for (size_t j = 1; j < C - 1; j++) {
+                    size_t k = ic + j;      
+                    v[k] += (w.c2 * lap[k] - w.c * v[k]) * dt;
+                }
+            }
+
+            sync.arrive_and_wait();
+
+            for (size_t i = i0; i < i1; i++) {
+                size_t ic = i * C;
+                for (size_t j = 1; j < C - 1; j++) {
+                    size_t k = ic + j;      
+                    u[k] += v[k] * dt;      
+                }
+            }
+
+            sync.arrive_and_wait();
+
+            if (tid == 0) {
+                t += dt;
+
+                if (interval > 0.0) {       
+                    auto now = std::chrono::steady_clock::now();
+                    double elapsed = std::chrono::duration<double>(now - last_ckpt).count();
+                    if (elapsed >= interval) {
+                        atomic_write(w, outfile);
+                        std::string chk = make_checkpoint_name(w.time());
+                        atomic_write(w, chk.c_str());
+                        last_ckpt = now;    
+                    }
+                }
+            }
+
+            sync.arrive_and_wait();
+        }
+    };
+
+    std::vector<std::thread> threads;       
+    threads.reserve(T);
+    for (int i = 0; i < T; i++)
+        threads.emplace_back(worker, i);    
+    for (auto& th : threads)
+        th.join();
+
+    atomic_write(w, outfile);
     return 0;
 }

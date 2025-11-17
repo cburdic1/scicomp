@@ -1,0 +1,498 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:233 (message)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      The system is: Linux - 5.14.0-427.50.1.el9_4.x86_64 - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /apps/gcc/14.1.0/bin/g++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        /home/cburdic1/scicomp/build/CMakeFiles/3.28.3/CompilerIdCXX/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-fq864w"
+      binary: "/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-fq864w"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-fq864w'
+        
+        Run Build Command(s): /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_e77a8/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_e77a8.dir/build.make CMakeFiles/cmTC_e77a8.dir/build
+        gmake[1]: Entering directory '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-fq864w'
+        Building CXX object CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o
+        /apps/gcc/14.1.0/bin/g++   -v -o CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o -c /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=/apps/gcc/14.1.0/bin/g++
+        Target: x86_64-pc-linux-gnu
+        Configured with: /apps/src/gcc/14.1.0/gcc-14.1.0/configure --prefix=/apps/gcc/14.1.0 --with-arch=haswell --with-tune=znver3 --with-fpmath=avx --enable-host-shared --enable-threads --enable-__cxa_atexit --enable-valgrind-annotations --disable-multilib --with-dwarf2
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 14.1.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'CMakeFiles/cmTC_e77a8.dir/'
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/cc1plus -quiet -v -iprefix /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/ -D_GNU_SOURCE /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_e77a8.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=znver3 -march=haswell -version -o /tmp/cctq10ZN.s
+        GNU C++17 (GCC) version 14.1.0 (x86_64-pc-linux-gnu)
+        	compiled by GNU C version 14.1.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../x86_64-pc-linux-gnu/include"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed"
+        ignoring nonexistent directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../x86_64-pc-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed
+         /usr/local/include
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../include
+         /usr/include
+        End of search list.
+        Compiler executable checksum: 82d6d6586140951e7b7c051a6bc1b727
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'CMakeFiles/cmTC_e77a8.dir/'
+         as -v --64 -o CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o /tmp/cctq10ZN.s
+        GNU assembler version 2.35.2 (x86_64-redhat-linux) using BFD version version 2.35.2-43.el9
+        COMPILER_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/
+        LIBRARY_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_e77a8
+        /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e77a8.dir/link.txt --verbose=1
+        /apps/gcc/14.1.0/bin/g++  -v CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_e77a8 
+        Using built-in specs.
+        COLLECT_GCC=/apps/gcc/14.1.0/bin/g++
+        COLLECT_LTO_WRAPPER=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper
+        Target: x86_64-pc-linux-gnu
+        Configured with: /apps/src/gcc/14.1.0/gcc-14.1.0/configure --prefix=/apps/gcc/14.1.0 --with-arch=haswell --with-tune=znver3 --with-fpmath=avx --enable-host-shared --enable-threads --enable-__cxa_atexit --enable-valgrind-annotations --disable-multilib --with-dwarf2
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 14.1.0 (GCC) 
+        COMPILER_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/
+        LIBRARY_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e77a8' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'cmTC_e77a8.'
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/collect2 -plugin /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/liblto_plugin.so -plugin-opt=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cc3D54pb.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_e77a8 /lib/../lib64/crt1.o /lib/../lib64/crti.o /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0 -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../.. CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o /lib/../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e77a8' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'cmTC_e77a8.'
+        gmake[1]: Leaving directory '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-fq864w'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0]
+          add: [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu]
+          add: [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward]
+          add: [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include]
+          add: [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed]
+          add: [/usr/local/include]
+          add: [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/include/c++/14.1.0]
+        collapse include dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/include/c++/14.1.0/x86_64-pc-linux-gnu]
+        collapse include dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/include/c++/14.1.0/backward]
+        collapse include dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0/include]
+        collapse include dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../include] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/vapps/rhel9/x86_64/gcc/14.1.0/include/c++/14.1.0;/vapps/rhel9/x86_64/gcc/14.1.0/include/c++/14.1.0/x86_64-pc-linux-gnu;/vapps/rhel9/x86_64/gcc/14.1.0/include/c++/14.1.0/backward;/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0/include;/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed;/usr/local/include;/vapps/rhel9/x86_64/gcc/14.1.0/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-fq864w']
+        ignore line: []
+        ignore line: [Run Build Command(s): /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_e77a8/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_e77a8.dir/build.make CMakeFiles/cmTC_e77a8.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-fq864w']
+        ignore line: [Building CXX object CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/apps/gcc/14.1.0/bin/g++   -v -o CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o -c /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/apps/gcc/14.1.0/bin/g++]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Configured with: /apps/src/gcc/14.1.0/gcc-14.1.0/configure --prefix=/apps/gcc/14.1.0 --with-arch=haswell --with-tune=znver3 --with-fpmath=avx --enable-host-shared --enable-threads --enable-__cxa_atexit --enable-valgrind-annotations --disable-multilib --with-dwarf2]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 14.1.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'CMakeFiles/cmTC_e77a8.dir/']
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/cc1plus -quiet -v -iprefix /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/ -D_GNU_SOURCE /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_e77a8.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=znver3 -march=haswell -version -o /tmp/cctq10ZN.s]
+        ignore line: [GNU C++17 (GCC) version 14.1.0 (x86_64-pc-linux-gnu)]
+        ignore line: [	compiled by GNU C version 14.1.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../x86_64-pc-linux-gnu/include"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../x86_64-pc-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 82d6d6586140951e7b7c051a6bc1b727]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'CMakeFiles/cmTC_e77a8.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o /tmp/cctq10ZN.s]
+        ignore line: [GNU assembler version 2.35.2 (x86_64-redhat-linux) using BFD version version 2.35.2-43.el9]
+        ignore line: [COMPILER_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/]
+        ignore line: [LIBRARY_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_e77a8]
+        ignore line: [/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e77a8.dir/link.txt --verbose=1]
+        ignore line: [/apps/gcc/14.1.0/bin/g++  -v CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_e77a8 ]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/apps/gcc/14.1.0/bin/g++]
+        ignore line: [COLLECT_LTO_WRAPPER=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Configured with: /apps/src/gcc/14.1.0/gcc-14.1.0/configure --prefix=/apps/gcc/14.1.0 --with-arch=haswell --with-tune=znver3 --with-fpmath=avx --enable-host-shared --enable-threads --enable-__cxa_atexit --enable-valgrind-annotations --disable-multilib --with-dwarf2]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 14.1.0 (GCC) ]
+        ignore line: [COMPILER_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/]
+        ignore line: [LIBRARY_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e77a8' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-dumpdir' 'cmTC_e77a8.']
+        link line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/collect2 -plugin /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/liblto_plugin.so -plugin-opt=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cc3D54pb.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_e77a8 /lib/../lib64/crt1.o /lib/../lib64/crti.o /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0 -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../.. CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o /lib/../lib64/crtn.o]
+          arg [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/cc3D54pb.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_e77a8] ==> ignore
+          arg [/lib/../lib64/crt1.o] ==> obj [/lib/../lib64/crt1.o]
+          arg [/lib/../lib64/crti.o] ==> obj [/lib/../lib64/crti.o]
+          arg [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o] ==> obj [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o]
+          arg [-L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0] ==> dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0]
+          arg [-L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc] ==> dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc]
+          arg [-L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64] ==> dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../..] ==> dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../..]
+          arg [CMakeFiles/cmTC_e77a8.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o] ==> obj [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o]
+          arg [/lib/../lib64/crtn.o] ==> obj [/lib/../lib64/crtn.o]
+        collapse obj [/lib/../lib64/crt1.o] ==> [/lib64/crt1.o]
+        collapse obj [/lib/../lib64/crti.o] ==> [/lib64/crti.o]
+        collapse obj [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o]
+        collapse obj [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o]
+        collapse obj [/lib/../lib64/crtn.o] ==> [/lib64/crtn.o]
+        collapse library dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0]
+        collapse library dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc]
+        collapse library dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../..] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib]
+        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/lib64/crt1.o;/lib64/crti.o;/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o;/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o;/lib64/crtn.o]
+        implicit dirs: [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0;/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc;/vapps/rhel9/x86_64/gcc/14.1.0/lib64;/lib64;/usr/lib64;/vapps/rhel9/x86_64/gcc/14.1.0/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/FindOpenMP.cmake:219 (try_compile)"
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/FindOpenMP.cmake:486 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:21 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9"
+      binary: "/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9'
+        
+        Run Build Command(s): /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_2b5a0/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_2b5a0.dir/build.make CMakeFiles/cmTC_2b5a0.dir/build
+        gmake[1]: Entering directory '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9'
+        Building CXX object CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o
+        /apps/gcc/14.1.0/bin/g++   -fopenmp -v -std=c++20 -o CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o -c /home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9/OpenMPTryFlag.cpp
+        Using built-in specs.
+        COLLECT_GCC=/apps/gcc/14.1.0/bin/g++
+        Target: x86_64-pc-linux-gnu
+        Configured with: /apps/src/gcc/14.1.0/gcc-14.1.0/configure --prefix=/apps/gcc/14.1.0 --with-arch=haswell --with-tune=znver3 --with-fpmath=avx --enable-host-shared --enable-threads --enable-__cxa_atexit --enable-valgrind-annotations --disable-multilib --with-dwarf2
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 14.1.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=c++20' '-o' 'CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_2b5a0.dir/'
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/cc1plus -quiet -v -iprefix /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/ -D_GNU_SOURCE -D_REENTRANT /home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9/OpenMPTryFlag.cpp -quiet -dumpdir CMakeFiles/cmTC_2b5a0.dir/ -dumpbase OpenMPTryFlag.cpp.cpp -dumpbase-ext .cpp -mtune=znver3 -march=haswell -std=c++20 -version -fopenmp -o /tmp/cckNIcb1.s
+        GNU C++20 (GCC) version 14.1.0 (x86_64-pc-linux-gnu)
+        	compiled by GNU C version 14.1.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../x86_64-pc-linux-gnu/include"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include"
+        ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed"
+        ignoring nonexistent directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../x86_64-pc-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed
+         /usr/local/include
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../include
+         /usr/include
+        End of search list.
+        Compiler executable checksum: 82d6d6586140951e7b7c051a6bc1b727
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=c++20' '-o' 'CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_2b5a0.dir/'
+         as -v --64 -o CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o /tmp/cckNIcb1.s
+        GNU assembler version 2.35.2 (x86_64-redhat-linux) using BFD version version 2.35.2-43.el9
+        COMPILER_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/
+        LIBRARY_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=c++20' '-o' 'CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.'
+        Linking CXX executable cmTC_2b5a0
+        /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2b5a0.dir/link.txt --verbose=1
+        /apps/gcc/14.1.0/bin/g++  -fopenmp -v CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o -o cmTC_2b5a0  -v 
+        Using built-in specs.
+        COLLECT_GCC=/apps/gcc/14.1.0/bin/g++
+        COLLECT_LTO_WRAPPER=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper
+        Target: x86_64-pc-linux-gnu
+        Configured with: /apps/src/gcc/14.1.0/gcc-14.1.0/configure --prefix=/apps/gcc/14.1.0 --with-arch=haswell --with-tune=znver3 --with-fpmath=avx --enable-host-shared --enable-threads --enable-__cxa_atexit --enable-valgrind-annotations --disable-multilib --with-dwarf2
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 14.1.0 (GCC) 
+        COMPILER_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/
+        LIBRARY_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../:/lib/:/usr/lib/
+        Reading specs from /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/libgomp.spec
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_2b5a0' '-v' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'cmTC_2b5a0.'
+         /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/collect2 -plugin /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/liblto_plugin.so -plugin-opt=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccPE65fr.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_2b5a0 /lib/../lib64/crt1.o /lib/../lib64/crti.o /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0 -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../.. CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o /lib/../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_2b5a0' '-v' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'cmTC_2b5a0.'
+        gmake[1]: Leaving directory '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/FindOpenMP.cmake:262 (message)"
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/FindOpenMP.cmake:486 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:21 (find_package)"
+    message: |
+      Parsed CXX OpenMP implicit link information from above output:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9']
+        ignore line: []
+        ignore line: [Run Build Command(s): /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_2b5a0/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_2b5a0.dir/build.make CMakeFiles/cmTC_2b5a0.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9']
+        ignore line: [Building CXX object CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o]
+        ignore line: [/apps/gcc/14.1.0/bin/g++   -fopenmp -v -std=c++20 -o CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o -c /home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9/OpenMPTryFlag.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/apps/gcc/14.1.0/bin/g++]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Configured with: /apps/src/gcc/14.1.0/gcc-14.1.0/configure --prefix=/apps/gcc/14.1.0 --with-arch=haswell --with-tune=znver3 --with-fpmath=avx --enable-host-shared --enable-threads --enable-__cxa_atexit --enable-valgrind-annotations --disable-multilib --with-dwarf2]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 14.1.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=c++20' '-o' 'CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_2b5a0.dir/']
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/cc1plus -quiet -v -iprefix /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/ -D_GNU_SOURCE -D_REENTRANT /home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-y37Tz9/OpenMPTryFlag.cpp -quiet -dumpdir CMakeFiles/cmTC_2b5a0.dir/ -dumpbase OpenMPTryFlag.cpp.cpp -dumpbase-ext .cpp -mtune=znver3 -march=haswell -std=c++20 -version -fopenmp -o /tmp/cckNIcb1.s]
+        ignore line: [GNU C++20 (GCC) version 14.1.0 (x86_64-pc-linux-gnu)]
+        ignore line: [	compiled by GNU C version 14.1.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../x86_64-pc-linux-gnu/include"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include"]
+        ignore line: [ignoring duplicate directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../x86_64-pc-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/x86_64-pc-linux-gnu]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../include/c++/14.1.0/backward]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/include-fixed]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/../../include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 82d6d6586140951e7b7c051a6bc1b727]
+        ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=c++20' '-o' 'CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_2b5a0.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o /tmp/cckNIcb1.s]
+        ignore line: [GNU assembler version 2.35.2 (x86_64-redhat-linux) using BFD version version 2.35.2-43.el9]
+        ignore line: [COMPILER_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/]
+        ignore line: [LIBRARY_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=c++20' '-o' 'CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.']
+        ignore line: [Linking CXX executable cmTC_2b5a0]
+        ignore line: [/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2b5a0.dir/link.txt --verbose=1]
+        ignore line: [/apps/gcc/14.1.0/bin/g++  -fopenmp -v CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o -o cmTC_2b5a0  -v ]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/apps/gcc/14.1.0/bin/g++]
+        ignore line: [COLLECT_LTO_WRAPPER=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Configured with: /apps/src/gcc/14.1.0/gcc-14.1.0/configure --prefix=/apps/gcc/14.1.0 --with-arch=haswell --with-tune=znver3 --with-fpmath=avx --enable-host-shared --enable-threads --enable-__cxa_atexit --enable-valgrind-annotations --disable-multilib --with-dwarf2]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 14.1.0 (GCC) ]
+        ignore line: [COMPILER_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/]
+        ignore line: [LIBRARY_PATH=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../:/lib/:/usr/lib/]
+        ignore line: [Reading specs from /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64/libgomp.spec]
+        ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_2b5a0' '-v' '-shared-libgcc' '-mtune=znver3' '-march=haswell' '-pthread' '-dumpdir' 'cmTC_2b5a0.']
+        link line: [ /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/collect2 -plugin /vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/liblto_plugin.so -plugin-opt=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccPE65fr.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_2b5a0 /lib/../lib64/crt1.o /lib/../lib64/crti.o /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtbegin.o -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0 -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../.. CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/crtend.o /lib/../lib64/crtn.o]
+          arg [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/vapps/rhel9/x86_64/gcc/14.1.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/14.1.0/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccPE65fr.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lpthread] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_2b5a0] ==> ignore
+          arg [-L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0] ==> dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0]
+          arg [-L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc] ==> dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc]
+          arg [-L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64] ==> dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../..] ==> dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../..]
+          arg [CMakeFiles/cmTC_2b5a0.dir/OpenMPTryFlag.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgomp] ==> lib [gomp]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lpthread] ==> lib [pthread]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+        collapse library dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0]
+        collapse library dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc]
+        collapse library dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../../../lib64] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/vapps/rhel9/x86_64/gcc/14.1.0/bin/../lib/gcc/x86_64-pc-linux-gnu/14.1.0/../../..] ==> [/vapps/rhel9/x86_64/gcc/14.1.0/lib]
+        implicit libs: [stdc++;m;gomp;gcc_s;gcc;pthread;c;gcc_s;gcc]
+        implicit objs: []
+        implicit dirs: [/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc/x86_64-pc-linux-gnu/14.1.0;/vapps/rhel9/x86_64/gcc/14.1.0/lib/gcc;/vapps/rhel9/x86_64/gcc/14.1.0/lib64;/lib64;/usr/lib64;/vapps/rhel9/x86_64/gcc/14.1.0/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/FindOpenMP.cmake:420 (try_compile)"
+      - "/vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/share/cmake-3.28/Modules/FindOpenMP.cmake:560 (_OPENMP_GET_SPEC_DATE)"
+      - "CMakeLists.txt:21 (find_package)"
+    description: "Detecting CXX OpenMP version"
+    directories:
+      source: "/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-flLMzO"
+      binary: "/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-flLMzO"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_SPECTEST_CXX_"
+      cached: true
+      stdout: |
+        Change Dir: '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-flLMzO'
+        
+        Run Build Command(s): /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3ae45/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3ae45.dir/build.make CMakeFiles/cmTC_3ae45.dir/build
+        gmake[1]: Entering directory '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-flLMzO'
+        Building CXX object CMakeFiles/cmTC_3ae45.dir/OpenMPCheckVersion.cpp.o
+        /apps/gcc/14.1.0/bin/g++   -fopenmp -std=c++20 -o CMakeFiles/cmTC_3ae45.dir/OpenMPCheckVersion.cpp.o -c /home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-flLMzO/OpenMPCheckVersion.cpp
+        Linking CXX executable cmTC_3ae45
+        /vapps/rhel9/x86_64/cmake/3.28.3/gcc-11.3.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3ae45.dir/link.txt --verbose=1
+        /apps/gcc/14.1.0/bin/g++  -fopenmp CMakeFiles/cmTC_3ae45.dir/OpenMPCheckVersion.cpp.o -o cmTC_3ae45 
+        gmake[1]: Leaving directory '/home/cburdic1/scicomp/build/CMakeFiles/CMakeScratch/TryCompile-flLMzO'
+        
+      exitCode: 0
+...
