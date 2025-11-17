@@ -1,7 +1,0 @@
-[wavefiles]
-git-tree-sha1 = "02451a2c76bfd162b7ff13e1f4371255ce1473ec"
-lazy = true
-
-    [[wavefiles.download]]
-    url = "https://byuhpc.github.io/sci-comp-course/project/wavefiles.tar.gz"
-    sha256 = "eef8d8d178109a1a7515269c9081c18caa9d4c8b105be7d02b450e4f25465191"

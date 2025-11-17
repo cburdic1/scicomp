@@ -1,1 +1,0 @@
-/apps/gcc/14.1.0/bin/g++ -Ofast -DNDEBUG CMakeFiles/wavesolve_openmp.dir/wavesolve_openmp.cpp.o -o wavesolve_openmp  /vapps/rhel9/x86_64/gcc/14.1.0/lib64/libgomp.so /lib64/libpthread.a 
